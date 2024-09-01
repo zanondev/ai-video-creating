@@ -16,11 +16,12 @@ def generate_voiceover(narration_text):
         "text": narration_text.content,
         "model_id": "eleven_multilingual_v2",
         "voice_settings": {
-        "stability": 0.5,
-        "similarity_boost": 0.8,
-        "style": 0.0,
-        "use_speaker_boost": True
-    }
+        "stability": 0.5, # Controls the emotional range and consistency of the voice. (Low (e.g. 0.3): More variation and emotion; High (e.g. 0.8): More stable, monotone voice)
+        "similarity_boost": 0.8, # Controls how closely the AI matches the original voice. (Low (e.g. 0.3): Less similar to original; High (e.g. 0.8): More similar, may replicate artifacts)
+        "style": 0.0, # Style: Enhances the speaker's style (value range 0-100) (Low (e.g. 20): Subtle style enhancement; High (e.g. 80): Strong style enhancement, may affect stability)
+        "use_speaker_boost": True # Speaker Boost: Increases likeness to original speaker (boolean) (false: Normal voice, true: Increased similarity, useful for weaker voices)
+        }
+        
     }
     response = requests.post(url, json=data, headers=headers)
     if response.ok:
