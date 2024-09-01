@@ -31,7 +31,7 @@ def create_video(image_urls, audio_path=elevenlabs_service.OUTPUT_PATH, video_ou
     
     # Salvar o vídeo
     video.write_videofile(video_output_path, fps=24)
-    print(f"Vídeo criado com sucesso: {video_output_path}")
+    print(f"Video stream saved successfully: {video_output_path}")
 
     # Apagar os arquivos de áudio e imagem temporários
     if os.path.exists(audio_path):
