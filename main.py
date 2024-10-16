@@ -43,7 +43,17 @@ def divideNarration(createdNarrationText):
     splitedNarration = splitPrompt(splitedNarrationPromptToCreate)
 
     for i, prompt in enumerate(splitedNarration):
-        url = openai_service.generate_image(prompt)
+        teste = prompt
+        # gerar audio para esse trecho de texto
+        # gerar imagem para esse trecho de texto
+        # adicionar em um dicionario/objeto audio_path e image_path
+
+    # criar midia com item do dicionario/objeto
+    # criar dicionario/objeto com midia_path
+    # criar midia juntando todos os itens do dicionario/objeto midia_path
+    
+
+
 
 # def cleanSplitedNarration(splitedNarration):
 #     # Nova lista para armazenar as partes válidas (sem **)
