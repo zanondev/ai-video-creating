@@ -20,8 +20,8 @@ def setNarrationText():
     print("Narration text generated")
     return createdNarrationText
 
-def setAudio(createdNarrationText):
-    elevenlabs_service.generate_voiceover(createdNarrationText)
+def setAudio(index, text):
+    elevenlabs_service.generate_voiceover(index, text)
     print("Narration voice file generated")
 
 def setImages(createdNarrationText):
@@ -41,19 +41,24 @@ def divideNarration(createdNarrationText):
     splitedNarrationPromptToCreate = prompt_service.get_divided_narration_prompt(createdNarrationText)
     
     splitedNarration = splitPrompt(splitedNarrationPromptToCreate)
-
-    for i, prompt in enumerate(splitedNarration):
-        teste = prompt
-        # gerar audio para esse trecho de texto
-        # gerar imagem para esse trecho de texto
-        # adicionar em um dicionario/objeto audio_path e image_path
-
-    # criar midia com item do dicionario/objeto
-    # criar dicionario/objeto com midia_path
-    # criar midia juntando todos os itens do dicionario/objeto midia_path
     
-
-
+    midiaDictionary = []
+    
+    for index, text in enumerate(splitedNarration):
+        # gerar audio para esse trecho de texto
+        setAudio(index, text)
+        # gerar imagem para esse trecho de texto
+        imageUrl = openai_service.generate_image(text)
+        # adicionar em um dicionario/objeto audio_path e image_path
+        # criar midia com item do dicionario/objeto
+        # criar dicionario/objeto com midia_path
+        midiaDictionary.append({
+            'audio': f"{index}.mp3",  # Caminho do arquivo de áudio
+            'image': imageUrl    # URL da imagem gerada
+        })
+        # criar midia juntando todos os itens do dicionario/objeto midia_path
+        teste = 0
+    
 
 # def cleanSplitedNarration(splitedNarration):
 #     # Nova lista para armazenar as partes válidas (sem **)
