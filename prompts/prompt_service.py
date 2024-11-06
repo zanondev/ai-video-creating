@@ -9,7 +9,7 @@ def get_divided_narration_prompt(createdNarration):
     Do not include descriptions or additional text. Ensure the output follows the order of the original text, and when combined, they should represent the entire text exactly as it was.
     """
 
-def get_narration_prompt(theme, 
+def get_narration_prompt(theme='Uma receita de bolo de laranja', 
                          objective='Educate', 
                          emotion='Curiosity', 
                          narrationStyle='Casual', 

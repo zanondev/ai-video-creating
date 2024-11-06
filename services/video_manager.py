@@ -1,4 +1,4 @@
-from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
+from moviepy.editor import ImageClip, AudioFileClip, VideoFileClip, concatenate_videoclips
 import requests
 import os
 from services import elevenlabs_service
@@ -40,3 +40,49 @@ def create_video(image_urls, audio_path=elevenlabs_service.OUTPUT_PATH, video_ou
     for image_path in image_paths:
         if os.path.exists(image_path):
             os.remove(image_path)
+
+
+def create_video2(mediaObject, index):
+    audioClip = AudioFileClip(mediaObject["audio"])
+    
+    # Baixar a imagem e salvá-la temporariamente
+    imageResponse = requests.get(mediaObject["image"])
+    imagePath = f"temp_image_{index}.png"
+    
+    with open(imagePath, 'wb') as f:
+        f.write(imageResponse.content)
+    
+    # Criar um clipe de imagem com a duração do áudio
+    imageClip = ImageClip(imagePath).set_duration(audioClip.duration)
+    
+    # Adicionar o áudio ao clipe de imagem
+    video = imageClip.set_audio(audioClip)
+    
+    # Definir o caminho de saída do vídeo
+    videoOutputPath = f"{index}.mp4"
+    
+    # Salvar o vídeo
+    video.write_videofile(videoOutputPath, fps=24)
+    print(f"Video stream saved successfully: {videoOutputPath}")
+    
+    # Apagar o arquivo de imagem temporário
+    if os.path.exists(imagePath):
+        os.remove(imagePath)
+    
+    # Retornar o caminho do vídeo gerado
+    return videoOutputPath
+
+def mergeVideo(videoPaths, outputPath="merged_output.mp4"):
+    # Carregar todos os clipes de vídeo na ordem fornecida
+    clips = [VideoFileClip(video) for video in videoPaths]
+    
+    # Concatenar todos os clipes
+    final_video = concatenate_videoclips(clips, method="compose")
+    
+    # Escrever o vídeo resultante para o caminho de saída
+    final_video.write_videofile(outputPath, fps=24)
+    print(f"Merged video saved successfully: {outputPath}")
+    
+    # Fechar os clipes para liberar memória
+    for clip in clips:
+        clip.close()

@@ -42,22 +42,25 @@ def divideNarration(createdNarrationText):
     
     splitedNarration = splitPrompt(splitedNarrationPromptToCreate)
     
-    midiaDictionary = []
+    videos = []
     
     for index, text in enumerate(splitedNarration):
         # gerar audio para esse trecho de texto
         setAudio(index, text)
         # gerar imagem para esse trecho de texto
         imageUrl = openai_service.generate_image(text)
-        # adicionar em um dicionario/objeto audio_path e image_path
-        # criar midia com item do dicionario/objeto
+        #objeto audio_path e image_path
+        mediaObject = {
+        'audio': f"{index}.mp3",  
+        'image': imageUrl         
+        }
+        # criar midia 
+        videoOutputPath = video_manager.create_video2(mediaObject, index)
         # criar dicionario/objeto com midia_path
-        midiaDictionary.append({
-            'audio': f"{index}.mp3",  # Caminho do arquivo de áudio
-            'image': imageUrl    # URL da imagem gerada
-        })
-        # criar midia juntando todos os itens do dicionario/objeto midia_path
-        teste = 0
+        videos.append(videoOutputPath)
+    
+    # criar midia juntando todos os itens do dicionario/objeto midia_path
+    video_manager.mergeVideo(videos)
     
 
 # def cleanSplitedNarration(splitedNarration):
@@ -76,14 +79,14 @@ def setVideo(imageUrlList):
 
 def main():
     createdNarrationText = setNarrationText()
-    divideNarration(createdNarrationText);
+    divideNarration(createdNarrationText)
 
 
     # setAudio(createdNarrationText)
 
-    imageUrlList = setImages(createdNarrationText)
+    # imageUrlList = setImages(createdNarrationText)
 
-    setVideo(imageUrlList)
+    # setVideo(imageUrlList)
     
 if __name__ == "__main__":
     main()
