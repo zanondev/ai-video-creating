@@ -31,3 +31,5 @@ def generate_voiceover(index, text):
                     f.write(chunk)
     print("Audio stream saved successfully.")
 
+    return response.ok
+

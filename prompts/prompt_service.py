@@ -9,12 +9,12 @@ def get_divided_narration_prompt(createdNarration):
     Do not include descriptions or additional text. Ensure the output follows the order of the original text, and when combined, they should represent the entire text exactly as it was.
     """
 
-def get_narration_prompt(theme='Uma receita de bolo de laranja', 
-                         objective='Educate', 
-                         emotion='Curiosity', 
-                         narrationStyle='Casual', 
-                         language='Portugues - BR', 
-                         length='Short'):
+def get_narration_prompt(theme, 
+                         objective, 
+                         emotion, 
+                         narrationStyle, 
+                         language, 
+                         length):
     return f"""
             Create text on the theme "{theme}". The objective of this text is "{objective}",
             and it should evoke the emotion of "{emotion}" in the readers.
