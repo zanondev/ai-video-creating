@@ -1,4 +1,0 @@
-openai
-moviepy
-requests
-ffmpeg-python

@@ -1,4 +1,4 @@
-from auth_settings import api_keys
+from settings import api_keys
 import requests
 
 VOICE_ID = "bIHbv24MWmeRgasZH58o"  
